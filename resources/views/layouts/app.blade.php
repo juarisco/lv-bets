@@ -75,7 +75,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
-                                <li class="list-group-item"><a href="">Bets</a></li>
+                                <li class="list-group-item"><a href="">Results</a></li>
                                 <li class="list-group-item"><a href="">Lotteries</a></li>
                             </ul>
                         </div>
