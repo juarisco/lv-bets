@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Lottery;
 
 class LotteriesController extends Controller
 {
@@ -13,7 +14,7 @@ class LotteriesController extends Controller
      */
     public function index()
     {
-        return view('lotteries.index');
+        return view('lotteries.index')->with('lotteries', Lottery::all());
     }
 
     /**
@@ -34,7 +35,30 @@ class LotteriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $this->validate($request, [
+        //     'name' => 'required|min:3|max:20|unique:lotteries',
+        //     // 'description' => 'string',
+        //     'type' => 'required|in:raffle,lottery',
+        //     'image' => 'image'
+        // ]);
+
+        // upload the image to storage
+        $image = $request->image->store('lotteries');
+
+        // create the object lottery or raffle
+        Lottery::create([
+            'name' => $request->name,
+            'slug' => str_slug($request->name),
+            'description' => $request->description,
+            'type' => $request->type,
+            'image' => $image,
+        ]);
+
+        // flash message
+        session()->flash('success', ucfirst($request->type) . ' created successfully.');
+
+        // redirect ..
+        return redirect()->route('lotteries.index');
     }
 
     /**

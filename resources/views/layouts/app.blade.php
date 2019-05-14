@@ -71,12 +71,17 @@
 
         <main class="py-4">
             @auth
-                <div class="container">
+            <div class="container">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
                                 <li class="list-group-item"><a href="">Results</a></li>
-                                <li class="list-group-item"><a href="">Lotteries</a></li>
+                                <li class="list-group-item"><a href="{{ route('lotteries.index') }}">Lotteries</a></li>
                             </ul>
                         </div>
                         <div class="col-md-8">
