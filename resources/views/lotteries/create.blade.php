@@ -6,14 +6,13 @@
     <div class="card-header">Create <strong>lottery</strong> or <strong>raffle</strong></div>
 
     <div class="card-body">
-        {{-- @include('partials.errors') --}}
 
         <form action="{{ route('lotteries.store') }}" method="post" enctype="multipart/form-data">
             @csrf
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Lottery or raffle name" autofocus>
+                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Lottery or raffle name" value="{{ old('name') }}" autofocus>
                 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -24,7 +23,7 @@
     
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="Describe this lottery or raffle here..."></textarea>
+                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="Describe this lottery or raffle here..."> {{ old('description') }}</textarea>
                 
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -37,8 +36,8 @@
                 <label for="type">Type</label>
                 <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
                     <option value="" selected>not selected</option>
-                    <option value="raffle">Raffle</option>
-                    <option value="lottery">Lottery</option>
+                    <option value="raffle" {{ old('type') == 'raffle' ? 'selected' : ''}}>Raffle</option>
+                    <option value="lottery" {{ old('type') == 'lottery' ? 'selected' : ''}}>Lottery</option>
                 </select>
                 
                 @error('type')

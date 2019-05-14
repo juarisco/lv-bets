@@ -1,3 +1,4 @@
+{{-- no used in any view --}}
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul class="list-group">

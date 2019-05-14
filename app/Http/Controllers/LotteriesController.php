@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Lottery;
+use Illuminate\Http\Request;
+use App\Http\Requests\CreateLotteryRequest;
 
 class LotteriesController extends Controller
 {
@@ -33,15 +34,8 @@ class LotteriesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateLotteryRequest $request)
     {
-        // $this->validate($request, [
-        //     'name' => 'required|min:3|max:20|unique:lotteries',
-        //     // 'description' => 'string',
-        //     'type' => 'required|in:raffle,lottery',
-        //     'image' => 'image'
-        // ]);
-
         // upload the image to storage
         $image = $request->image->store('lotteries');
 
