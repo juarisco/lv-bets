@@ -119,8 +119,12 @@ class LotteriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Lottery $lottery)
     {
-        //
+        $lottery->delete();
+
+        session()->flash('success', ucfirst($lottery->type) . ' deleted successfully.');
+
+        return redirect()->route('lotteries.index');
     }
 }
