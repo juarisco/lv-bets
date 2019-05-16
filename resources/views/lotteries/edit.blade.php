@@ -1,24 +1,25 @@
 @extends('layouts.app')
 
 @section('title')
-    - Creating Lottery or Raffle
+    - Editing {{ ucfirst($lottery->type) }} {{$lottery->name}}
 @endsection
 
 @section('content')
 
 <div class="card">
     <div class="card-header">
-        Create <strong>lottery</strong> or <strong>raffle</strong>
+        Edit lottery or raffle <strong>{{ ucfirst($lottery->name) }}</strong>
     </div>
 
     <div class="card-body">
 
-        <form action="{{ route('lotteries.store') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('lotteries.update', $lottery->slug) }}" method="post" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" placeholder="Lottery or raffle name" value="{{ old('name') }}" autofocus>
+                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $lottery->name) }}">
                 
                 @error('name')
                     <span class="invalid-feedback" role="alert">
@@ -29,7 +30,7 @@
     
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="Describe this lottery or raffle here..."> {{ old('description') }}</textarea>
+                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror">{{ old('description', $lottery->description) }}</textarea>
                 
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -41,9 +42,8 @@
             <div class="form-group">
                 <label for="type">Type</label>
                 <select name="type" id="type" class="form-control @error('type') is-invalid @enderror">
-                    <option value="" selected>not selected</option>
-                    <option value="raffle" {{ old('type') == 'raffle' ? 'selected' : ''}}>Raffle</option>
-                    <option value="lottery" {{ old('type') == 'lottery' ? 'selected' : ''}}>Lottery</option>
+                    <option value="raffle" {{ old('type', $lottery->type) == 'raffle' ? 'selected' : ''}}>Raffle</option>
+                    <option value="lottery" {{ old('type', $lottery->type) == 'lottery' ? 'selected' : ''}}>Lottery</option>
                 </select>
                 
                 @error('type')
@@ -51,6 +51,10 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
+
+            <div class="form-group text-center">
+                <img src="{{ Storage::url($lottery->image) }}" alt="" class="img-thumbnail mx-auto">
             </div>
     
             <div class="form-group">
@@ -66,7 +70,7 @@
     
             <div class="form-group">
                 <button class="btn btn-success">
-                    Add Lottery or Raffle
+                    Edit Lottery or Raffle
                 </button>
             </div>        
         </form>

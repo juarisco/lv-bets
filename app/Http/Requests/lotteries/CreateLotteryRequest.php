@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\lotteries;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,7 +25,7 @@ class CreateLotteryRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:20|unique:lotteries',
-            // 'description' => 'string',
+            'description' => 'max:255',
             'type' => 'required|in:raffle,lottery',
             'image' => 'image'
         ];

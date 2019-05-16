@@ -32,7 +32,7 @@
                             {{-- <img src="{{ Storage::url($lottery->image) }}" alt=""> --}}
                         </td>
                         <td>
-                            <a href="" class="btn btn-info btn-sm ml-2">Edit</a>
+                            <a href="{{ route('lotteries.edit', $lottery->slug) }}" class="btn btn-info btn-sm ml-2">Edit</a>
                             <a href="" class="btn btn-danger btn-sm">Trash</a>
                         </td>
                     </tr>

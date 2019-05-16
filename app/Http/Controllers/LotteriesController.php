@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Lottery;
 use Illuminate\Http\Request;
-use App\Http\Requests\CreateLotteryRequest;
+use App\Http\Requests\lotteries\CreateLotteryRequest;
+use App\Http\Requests\lotteries\UpdateLotteryRequest;
+use Illuminate\Support\Facades\Storage;
 
 class LotteriesController extends Controller
 {
@@ -36,17 +38,19 @@ class LotteriesController extends Controller
      */
     public function store(CreateLotteryRequest $request)
     {
-        // upload the image to storage
-        $image = $request->image->store('lotteries');
+        // attributes
+        $data = $request->only(['name', 'description', 'type']);
+
+        // check if image
+        if ($request->hasFile('image')) {
+            // upload the image to storage
+            $image = $request->image->store('lotteries');
+
+            $data['image'] = $image;
+        }
 
         // create the object lottery or raffle
-        Lottery::create([
-            'name' => $request->name,
-            'slug' => str_slug($request->name),
-            'description' => $request->description,
-            'type' => $request->type,
-            'image' => $image,
-        ]);
+        Lottery::create($data);
 
         // flash message
         session()->flash('success', ucfirst($request->type) . ' created successfully.');
@@ -72,9 +76,9 @@ class LotteriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Lottery $lottery)
     {
-        //
+        return view('lotteries.edit')->with('lottery', $lottery);
     }
 
     /**
@@ -84,9 +88,29 @@ class LotteriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateLotteryRequest $request, Lottery $lottery)
     {
-        //
+        $data = $request->only(['name', 'description', 'type']);
+
+        // check if new image
+        if ($request->hasFile('image')) {
+            // upload it
+            $image = $request->image->store('lotteries');
+
+            // delete old one
+            Storage::delete($lottery->image);
+
+            $data['image'] = $image;
+        }
+
+        // update attributes
+        $lottery->update($data);
+
+        // flash message
+        session()->flash('success', ucfirst($request->type) . ' Updated successfully.');
+
+        // redirect ..
+        return redirect()->route('lotteries.index');
     }
 
     /**
