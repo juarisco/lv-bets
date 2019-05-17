@@ -10,35 +10,43 @@
     <div class="card-header">Lotteries</div>
 
     <div class="card-body">
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Description</th>
-                <th scope="col">Type</th>
-                <th scope="col">Image</th>
-                <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($lotteries as $lottery)
+        @if ($lotteries->count())
+            <table class="table">
+                <thead class="thead-light">
                     <tr>
-                        <td>{{ $lottery->name }}</td>
-                        <td>{{ $lottery->description }}</td>
-                        <td>{{ $lottery->type }}</td>
-                        {{-- <td>{{ $lottery->image ?? 'No image' }}</td> --}}
-                        <td>
-                            <img src="{{ Storage::url($lottery->image) }}" alt="" width="60px" height="60px">
-                            {{-- <img src="{{ Storage::url($lottery->image) }}" alt=""> --}}
-                        </td>
-                        <td>
-                            <a href="{{ route('lotteries.edit', $lottery->slug) }}" class="btn btn-info btn-sm">Edit</a>
-                            <button class="btn btn-danger btn-sm" onclick="handleDelete('{{ $lottery->slug }}')">Trash</button>
-                        </td>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Image</th>
+                    <th scope="col"></th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($lotteries as $lottery)
+                        <tr>
+                            <td>{{ $lottery->name }}</td>
+                            <td>{{ $lottery->description }}</td>
+                            <td>{{ $lottery->type }}</td>
+                            {{-- <td>{{ $lottery->image ?? 'No image' }}</td> --}}
+                            <td>
+                                <img src="{{ Storage::url($lottery->image) }}" alt="" width="60px" height="60px">
+                                {{-- <img src="{{ Storage::url($lottery->image) }}" alt=""> --}}
+                            </td>
+                            <td>
+                                @if (!$lottery->trashed())
+                                    <a href="{{ route('lotteries.edit', $lottery->slug) }}" class="btn btn-info btn-sm">Edit</a>
+                                @endif
+                                <button class="btn btn-danger btn-sm" onclick="handleDelete('{{ $lottery->slug }}')">
+                                    {{ $lottery->trashed() ? 'Delete' : 'Trash' }}
+                                </button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <h3 class="text-center">No Lotteries Yet</h3>
+        @endif
 
         <!-- Modal -->
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

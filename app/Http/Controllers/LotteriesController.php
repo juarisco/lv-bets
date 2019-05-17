@@ -119,12 +119,30 @@ class LotteriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Lottery $lottery)
+    public function destroy($slug)
     {
-        $lottery->delete();
+        $lottery = Lottery::withTrashed()->where('slug', $slug)->firstOrFail();
 
-        session()->flash('success', ucfirst($lottery->type) . ' trashed successfully.');
+        if ($lottery->trashed()) {
+            $lottery->forceDelete();
+        } else {
+            $lottery->delete();
+        }
+
+        session()->flash('success', ucfirst($lottery->type) . ' deleted successfully.');
 
         return redirect()->route('lotteries.index');
+    }
+
+    /**
+     * Display a list of all trashed lotteries.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function trashed()
+    {
+        $trashed = Lottery::onlyTrashed()->get();
+
+        return view('lotteries.index')->withLotteries($trashed);
     }
 }
