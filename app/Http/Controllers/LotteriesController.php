@@ -123,7 +123,7 @@ class LotteriesController extends Controller
     {
         $lottery->delete();
 
-        session()->flash('success', ucfirst($lottery->type) . ' deleted successfully.');
+        session()->flash('success', ucfirst($lottery->type) . ' trashed successfully.');
 
         return redirect()->route('lotteries.index');
     }
