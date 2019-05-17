@@ -124,6 +124,7 @@ class LotteriesController extends Controller
         $lottery = Lottery::withTrashed()->where('slug', $slug)->firstOrFail();
 
         if ($lottery->trashed()) {
+            Storage::delete($lottery->image);
             $lottery->forceDelete();
         } else {
             $lottery->delete();

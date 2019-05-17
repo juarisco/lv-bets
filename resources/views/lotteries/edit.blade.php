@@ -54,7 +54,11 @@
             </div>
 
             <div class="form-group text-center">
-                <img src="{{ Storage::url($lottery->image) }}" alt="" class="img-thumbnail mx-auto">
+                @if ($lottery->image)
+                    <img src="{{ Storage::url($lottery->image) }}" alt="" class="img-thumbnail mx-auto">
+                @else
+                    No image
+                @endif
             </div>
     
             <div class="form-group">

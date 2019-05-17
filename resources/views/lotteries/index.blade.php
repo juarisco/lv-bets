@@ -27,10 +27,12 @@
                             <td>{{ $lottery->name }}</td>
                             <td>{{ $lottery->description }}</td>
                             <td>{{ $lottery->type }}</td>
-                            {{-- <td>{{ $lottery->image ?? 'No image' }}</td> --}}
                             <td>
-                                <img src="{{ Storage::url($lottery->image) }}" alt="" width="60px" height="60px">
-                                {{-- <img src="{{ Storage::url($lottery->image) }}" alt=""> --}}
+                                @if ($lottery->image)
+                                    <img src="{{ Storage::url($lottery->image) }}" alt="" width="60px" height="60px">
+                                @else
+                                    No image
+                                @endif
                             </td>
                             <td>
                                 @if (!$lottery->trashed())
