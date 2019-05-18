@@ -56,10 +56,10 @@
             </div>
 
             <div class="form-group text-center">
-                @if ($lottery->image)
-                    <img src="{{ Storage::url($lottery->image) }}" alt="" class="img-thumbnail mx-auto">
-                @else
+                @if (!$lottery->image)
                     No image
+                @else
+                    <img src="{{ $lottery->image }}" class="img-thumbnail mx-auto" alt="">
                 @endif
             </div>
     

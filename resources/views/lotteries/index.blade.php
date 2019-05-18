@@ -28,14 +28,20 @@
                             <td>{!! $lottery->description !!}</td>
                             <td>{{ $lottery->type }}</td>
                             <td>
-                                @if ($lottery->image)
-                                    <img src="{{ Storage::url($lottery->image) }}" alt="" width="60px" height="60px">
-                                @else
+                                @if (!$lottery->image)
                                     No image
+                                @else
+                                    <img src="{{ $lottery->image }}" class="img-thumbnail" alt="">
                                 @endif
                             </td>
                             <td>
-                                @if (!$lottery->trashed())
+                                @if ($lottery->trashed())
+                                    <form action="{{ route('restore-lotteries', $lottery->slug) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-info btn-sm">Restore</button> 
+                                    </form>
+                                @else
                                     <a href="{{ route('lotteries.edit', $lottery->slug) }}" class="btn btn-info btn-sm">Edit</a>
                                 @endif
                                 <button class="btn btn-danger btn-sm" onclick="handleDelete('{{ $lottery->slug }}')">

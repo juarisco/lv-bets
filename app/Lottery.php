@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Lottery extends Model
@@ -43,5 +44,24 @@ class Lottery extends Model
     {
         $this->attributes['name'] = $value;
         $this->attributes['slug'] = str_slug($value);
+    }
+
+    /**
+     * Delete lottery image from storage
+     *
+     * @return void
+     */
+    public function deleteImage()
+    {
+        Storage::delete($this->image);
+    }
+
+    public function getImageAttribute($value)
+    {
+        if (!$value) {
+            return $value;
+        }
+
+        return Storage::url($value);
     }
 }

@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('lotteries', 'LotteriesController');
 Route::get('trashed-lotteries', 'LotteriesController@trashed')->name('trashed-lotteries.index');
+Route::put('restore-lotteries/{lottery}', 'LotteriesController@restore')->name('restore-lotteries');

@@ -6,7 +6,6 @@ use App\Lottery;
 use Illuminate\Http\Request;
 use App\Http\Requests\lotteries\CreateLotteryRequest;
 use App\Http\Requests\lotteries\UpdateLotteryRequest;
-use Illuminate\Support\Facades\Storage;
 
 class LotteriesController extends Controller
 {
@@ -98,7 +97,7 @@ class LotteriesController extends Controller
             $image = $request->image->store('lotteries');
 
             // delete old one
-            Storage::delete($lottery->image);
+            $lottery->deleteImage();
 
             $data['image'] = $image;
         }
@@ -124,7 +123,8 @@ class LotteriesController extends Controller
         $lottery = Lottery::withTrashed()->where('slug', $slug)->firstOrFail();
 
         if ($lottery->trashed()) {
-            Storage::delete($lottery->image);
+            $lottery->deleteImage();
+
             $lottery->forceDelete();
         } else {
             $lottery->delete();
@@ -145,5 +145,16 @@ class LotteriesController extends Controller
         $trashed = Lottery::onlyTrashed()->get();
 
         return view('lotteries.index')->withLotteries($trashed);
+    }
+
+    public function restore($slug)
+    {
+        $lottery = Lottery::withTrashed()->where('slug', $slug)->firstOrFail();
+
+        $lottery->restore();
+
+        session()->flash('success', ucfirst($lottery->type) . ' restored successfully.');
+
+        return redirect()->back();
     }
 }
