@@ -25,7 +25,7 @@ class UpdateLotteryRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:20|unique:lotteries,name,' . $this->lottery->id,
-            'description' => 'max:255',
+            'description' => 'required|max:255',
             'type' => 'required|in:raffle,lottery',
             'image' => 'image'
         ];

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    - Creating Lottery or Raffle
+    | Creating Lottery or Raffle
 @endsection
 
 @section('content')
@@ -29,7 +29,9 @@
     
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="Describe this lottery or raffle here..."> {{ old('description') }}</textarea>
+                {{-- <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror" placeholder="Describe this lottery or raffle here..."> {{ old('description') }}</textarea> --}}
+                <input id="description" type="hidden" name="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description') }}">
+                <trix-editor input="description" placeholder="Describe this lottery or raffle here..."></trix-editor>
                 
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -74,4 +76,12 @@
     </div>
 </div>   
 
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.css">
 @endsection

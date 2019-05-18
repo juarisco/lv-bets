@@ -25,7 +25,7 @@
                     @foreach ($lotteries as $lottery)
                         <tr>
                             <td>{{ $lottery->name }}</td>
-                            <td>{{ $lottery->description }}</td>
+                            <td>{!! $lottery->description !!}</td>
                             <td>{{ $lottery->type }}</td>
                             <td>
                                 @if ($lottery->image)

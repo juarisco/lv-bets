@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    - Editing {{ ucfirst($lottery->type) }} {{$lottery->name}}
+    | Editing {{ ucfirst($lottery->type) }} {{$lottery->name}}
 @endsection
 
 @section('content')
@@ -30,7 +30,9 @@
     
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror">{{ old('description', $lottery->description) }}</textarea>
+                {{-- <textarea name="description" id="description" cols="5" rows="5" class="form-control @error('description') is-invalid @enderror">{{ old('description', $lottery->description) }}</textarea> --}}
+                <input id="description" type="hidden" name="description" class="form-control @error('description') is-invalid @enderror" value="{{ old('description', $lottery->description) }}">
+                <trix-editor input="description"></trix-editor>
                 
                 @error('description')
                     <span class="invalid-feedback" role="alert">
@@ -82,4 +84,12 @@
     </div>
 </div>   
 
+@endsection
+
+@section('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.js"></script>
+@endsection
+
+@section('css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.1.1/trix.css">
 @endsection
