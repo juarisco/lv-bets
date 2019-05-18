@@ -56,6 +56,12 @@ class Lottery extends Model
         Storage::delete($this->image);
     }
 
+    /**
+     * Get the lottery's image.
+     *
+     * @param  string  $value
+     * @return string
+     */
     public function getImageAttribute($value)
     {
         if (!$value) {
