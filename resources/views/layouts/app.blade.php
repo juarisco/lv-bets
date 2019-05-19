@@ -90,9 +90,11 @@
                             <ul class="list-group">
                                 <li class="list-group-item"><a href="">Results</a></li>
                                 <li class="list-group-item"><a href="{{ route('lotteries.index') }}">Lotteries</a></li>
+                                <li class="list-group-item"><a href="{{ route('times.index') }}">Times</a></li>
                             </ul>
                             <ul class="list-group mt-5">
                                 <li class="list-group-item"><a href="{{ route('trashed-lotteries.index') }}">Trashed Lotteries</a></li>
+                                <li class="list-group-item"><a href="{{ route('trashed-times.index') }}">Trashed Times</a></li>
                             </ul>
                         </div>
                         <div class="col-md-8">
