@@ -37,6 +37,11 @@
                 <label for="time_id">Time</label>
                 <select name="time_id" id="time_id" class="form-control @error('time_id') is-invalid @enderror">
                     <option value="" selected>Not selected</option>
+                    @foreach ($times as $time)
+                        <option value="{{ $time->id }}">
+                            {{ $time->alias }}
+                        </option>                        
+                    @endforeach
                     <option value="lottery" {{-- old('time_id') == 'lottery' ? 'selected' : ''--}}>Option 1</option>
                 </select>
                 
@@ -51,6 +56,11 @@
                 <label for="lottery_id">Lottery</label>
                 <select name="lottery_id" id="lottery_id" class="form-control @error('lottery_id') is-invalid @enderror">
                     <option value="" selected>Not selected</option>
+                    @foreach ($lotteries as $lottery)
+                        <option value="{{ $lottery->id }}">
+                            {{ $lottery->name }}
+                        </option>                        
+                    @endforeach
                     <option value="lottery" {{-- old('type') == 'lottery' ? 'selected' : ''--}}>Option 1</option>
                 </select>
                 

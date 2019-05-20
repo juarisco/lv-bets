@@ -35,6 +35,14 @@ class Lottery extends Model
     }
 
     /**
+     * Get the results for the lottery.
+     */
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    /**
      * Set the lottery or raffle's slug field.
      *
      * @param  string  $value

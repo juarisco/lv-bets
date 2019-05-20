@@ -28,6 +28,14 @@ class Time extends Model
     }
 
     /**
+     * Get the results for the lottery.
+     */
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
+
+    /**
      * Set the time's slug field.
      *
      * @param  string  $value

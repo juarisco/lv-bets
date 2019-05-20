@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Time;
 use App\Result;
+use App\Lottery;
 use Illuminate\Http\Request;
 
 class ResultsController extends Controller
@@ -24,7 +26,9 @@ class ResultsController extends Controller
      */
     public function create()
     {
-        return view('results.create');
+        return view('results.create')
+            ->with('lotteries', Lottery::all())
+            ->with('times', Time::all());
     }
 
     /**
