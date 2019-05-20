@@ -88,7 +88,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">
-                                <li class="list-group-item"><a href="">Results</a></li>
+                                <li class="list-group-item"><a href="{{ route('results.index') }}">Results</a></li>
                                 <li class="list-group-item"><a href="{{ route('lotteries.index') }}">Lotteries</a></li>
                                 <li class="list-group-item"><a href="{{ route('times.index') }}">Times</a></li>
                             </ul>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    | Lotteries and Raffles
+    | Lotteries and Raffles @if(request()->is('trashed-lotteries')) Trashed @endif
 @endsection
 
 @section('content')
@@ -11,7 +11,7 @@
 </div>
 
 <div class="card">
-    <div class="card-header">Lotteries</div>
+    <div class="card-header">Lotteries @if(request()->is('trashed-lotteries')) Trashed @endif</div>
 
     <div class="card-body">
         @if ($lotteries->count())

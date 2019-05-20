@@ -26,3 +26,5 @@ Route::put('restore-lotteries/{lottery}', 'LotteriesController@restore')->name('
 Route::resource('times', 'TimesController');
 Route::get('trashed-times', 'TimesController@trashed')->name('trashed-times.index');
 Route::put('restore-times/{time}', 'TimesController@restore')->name('restore-times');
+
+Route::resource('results', 'ResultsController');
