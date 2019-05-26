@@ -1,38 +1,74 @@
 @extends('layouts.app')
 
 @section('title')
-    | Results
+    | @if (request('lottery')) {{ ucfirst($lottery->name) . '\'s' }} @endif Results 
 @endsection
 
 @section('content')
 
 <div class="d-flex justify-content-end mb-2">
-    <a href="{{ route('results.create') }}" class="btn btn-success">Add Result</a>
+
+    <div class="btn-group" role="group">
+        <button id="btnGroupDrop1" type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Add Result
+        </button>
+        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+            <a class="dropdown-item" href="{{ url('results/create', ['lottery']) }}">Add Lottery</a>
+            <a class="dropdown-item" href="{{ url('results/create', ['raffle']) }}">Add Rafle</a>
+        </div>
+    </div> 
+
 </div>
 
 <div class="card">
-<div class="card-header">Results</div>
+    <div class="card-header">@if (request('lottery')) {{ ucfirst($lottery->name) . '\'s' }} @endif Results</div>
 
     <div class="card-body">
         @if ($results->count())
             <table class="table">
                 <thead class="thead-light">
                     <tr>
+                        <th scope="col">
+                            @if (request('lottery'))
+                                {{ $lottery->is_lottery ? 'Lottery' : 'Raffle'}}
+                            @else
+                                Lottery or Raffle
+                            @endif
+                        </th>
+
                         <th scope="col">Number</th>
-                        <th scope="col">Series</th>
-                        <th scope="col">Lottery</th>
-                        <th scope="col">Time</th>
+
+                        {{-- tal vez aquí no pueda usar directamente $lottery pues no existe si viene del contorlador de Ressults--}}
+                        @if (!request('lottery') or $lottery->is_lottery)
+                            <th scope="col">Series</th>
+                        @endif
+
                         <th scope="col">Published At</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($results as $result)
                         <tr>
+                            <td>
+                                <a href="">
+                                    {{ $result->lottery->name }}
+                                </a>
+                                @if ($result->lottery->is_raffle)
+                                    {{ ucfirst($result->time->alias) }}
+                                @endif
+                            </td>
+
                             <td>{{ $result->number }}</td>
-                            <td>{{ $result->series }}</td>
-                            <td>{{ $result->lottery }}</td>
-                            <td>{{ $result->time }}</td>
-                            <td>{{ $result->published_at }}</td>
+
+                            @if (!request('lottery') or $result->lottery->is_lottery)
+                                <td>
+                                    {{ $result->lottery->is_lottery ? $result->series : 'No series' }}
+                                </td>
+                            @endif
+
+                            <td>{{ $result->published_at->toFormattedDateString() }}</td>
+                            
                             <td>
                                 <a href="{{ route('results.edit', $result->id) }}" class="btn btn-info btn-sm">Edit</a>
                                 <button class="btn btn-danger btn-sm" onclick="handleDelete('{{ $result->id }}')">

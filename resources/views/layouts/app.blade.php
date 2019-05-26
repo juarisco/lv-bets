@@ -38,7 +38,19 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Results by Lottery or Raffle
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                @foreach ($menu_lotteries as $lottery)
+                                    <a class="dropdown-item" href="{{ route('lottery.results', $lottery->slug ) }}">{{ $lottery->name }}</a>
+                                @endforeach
+                                {{-- <a class="dropdown-item" href="#">Another action</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Something else here</a> --}}
+                            </div>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -78,8 +90,9 @@
         </nav>
 
         <main class="py-4">
+            
             @auth
-            <div class="container">
+                <div class="container">
                     @if (session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -92,7 +105,7 @@
                                 <li class="list-group-item"><a href="{{ route('lotteries.index') }}">Lotteries</a></li>
                                 <li class="list-group-item"><a href="{{ route('times.index') }}">Times</a></li>
                             </ul>
-                            <ul class="list-group mt-5">
+                            <ul class="list-group mt-5 mb-4">
                                 <li class="list-group-item"><a href="{{ route('trashed-lotteries.index') }}">Trashed Lotteries</a></li>
                                 <li class="list-group-item"><a href="{{ route('trashed-times.index') }}">Trashed Times</a></li>
                             </ul>
@@ -103,7 +116,13 @@
                     </div>
                 </div>
             @else
-                @yield('content')
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
             @endauth
         </main>
     </div>

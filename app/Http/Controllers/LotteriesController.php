@@ -59,14 +59,16 @@ class LotteriesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified result's resource.
      *
      * @param  \App\Lottery  $lottery
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showResults(Lottery $lottery)
     {
-        //
+        return view('results.index')
+            ->with('lottery', $lottery)
+            ->with('results', $lottery->results);
     }
 
     /**

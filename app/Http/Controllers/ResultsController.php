@@ -6,6 +6,8 @@ use App\Time;
 use App\Result;
 use App\Lottery;
 use Illuminate\Http\Request;
+use App\Http\Requests\results\CreateResultRequest;
+use App\Http\Requests\results\UpdateResultRequest;
 
 class ResultsController extends Controller
 {
@@ -24,11 +26,15 @@ class ResultsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($type)
     {
-        return view('results.create')
-            ->with('lotteries', Lottery::all())
-            ->with('times', Time::all());
+        if ($type == 'raffle' or $type == 'lottery') {
+            return view('results.create')
+                ->with('lotteries', Lottery::where('type', $type)->get())
+                ->with('times', Time::all());
+        } else {
+            abort(404);
+        }
     }
 
     /**
@@ -37,9 +43,14 @@ class ResultsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateResultRequest $request)
     {
-        dd($request->published_at);
+        // dd($request->all());
+        Result::create($request->all());
+
+        session()->flash('success', 'Result created successfully.');
+
+        return redirect()->route('results.index');
     }
 
     /**
@@ -61,7 +72,10 @@ class ResultsController extends Controller
      */
     public function edit(Result $result)
     {
-        //
+        return view('results.edit')
+            ->with('result', $result)
+            ->with('lotteries', Lottery::where('type', $result->lottery->type)->get())
+            ->with('times', Time::all());
     }
 
     /**
@@ -71,9 +85,14 @@ class ResultsController extends Controller
      * @param  \App\Result  $result
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Result $result)
+    public function update(UpdateResultRequest $request, Result $result)
     {
-        //
+        $result->update($request->all());
+
+        session()->flash('success', 'Result updated successfully.');
+
+        // return redirect()->route('results.index');
+        return redirect()->back();
     }
 
     /**
@@ -84,6 +103,10 @@ class ResultsController extends Controller
      */
     public function destroy(Result $result)
     {
-        //
+        $result->delete();
+
+        session()->flash('success', 'Result deleted successfully!');
+
+        return redirect()->route('results.index');
     }
 }

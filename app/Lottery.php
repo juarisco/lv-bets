@@ -43,6 +43,26 @@ class Lottery extends Model
     }
 
     /**
+     * Return true or false.
+     *
+     * @return boolean
+     */
+    public function getIsRaffleAttribute()
+    {
+        return $this->type == 'raffle';
+    }
+
+    /**
+     * Return true or false.
+     *
+     * @return boolean
+     */
+    public function getIsLotteryAttribute()
+    {
+        return $this->type == 'lottery';
+    }
+
+    /**
      * Set the lottery or raffle's slug field.
      *
      * @param  string  $value
