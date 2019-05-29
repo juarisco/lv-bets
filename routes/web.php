@@ -35,4 +35,5 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('users', 'UsersController@index')->name('users.index');
+    Route::post('users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
 });
