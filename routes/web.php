@@ -32,3 +32,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('results', 'ResultsController')->except('create');
     Route::get('results/create/{type}', 'ResultsController@create');
 });
+
+Route::group(['middleware' => ['auth', 'admin']], function () {
+    Route::get('users', 'UsersController@index')->name('users.index');
+});
