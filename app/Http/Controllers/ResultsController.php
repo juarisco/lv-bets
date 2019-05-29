@@ -12,6 +12,14 @@ use App\Http\Requests\results\UpdateResultRequest;
 class ResultsController extends Controller
 {
     /**
+     * Verify if there're not any lottery or time to redirect to create lotteries and times.
+     */
+    public function __construct()
+    {
+        $this->middleware('VerifyLotteriesAndTimesCount')->only(['create', 'store']);
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response

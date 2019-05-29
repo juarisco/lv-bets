@@ -22,6 +22,7 @@
                     <th scope="col">Description</th>
                     <th scope="col">Type</th>
                     <th scope="col">Image</th>
+                    <th scope="col">Results</th>
                     <th scope="col"></th>
                     </tr>
                 </thead>
@@ -38,6 +39,7 @@
                                     <img src="{{ $lottery->image }}" class="img-thumbnail" alt="">
                                 @endif
                             </td>
+                            <td>{{ $lottery->results->count() }}</td>
                             <td>
                                 @if ($lottery->trashed())
                                     <form action="{{ route('restore-lotteries', $lottery->slug) }}" method="POST">

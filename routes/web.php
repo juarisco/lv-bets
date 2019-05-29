@@ -19,14 +19,16 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('lotteries', 'LotteriesController');
-Route::get('trashed-lotteries', 'LotteriesController@trashed')->name('trashed-lotteries.index');
-Route::put('restore-lotteries/{lottery}', 'LotteriesController@restore')->name('restore-lotteries');
-Route::get('lottery/{lottery}/results', 'LotteriesController@showResults')->name('lottery.results');
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('lotteries', 'LotteriesController');
+    Route::get('trashed-lotteries', 'LotteriesController@trashed')->name('trashed-lotteries.index');
+    Route::put('restore-lotteries/{lottery}', 'LotteriesController@restore')->name('restore-lotteries');
+    Route::get('lottery/{lottery}/results', 'LotteriesController@showResults')->name('lottery.results');
 
-Route::resource('times', 'TimesController');
-Route::get('trashed-times', 'TimesController@trashed')->name('trashed-times.index');
-Route::put('restore-times/{time}', 'TimesController@restore')->name('restore-times');
+    Route::resource('times', 'TimesController');
+    Route::get('trashed-times', 'TimesController@trashed')->name('trashed-times.index');
+    Route::put('restore-times/{time}', 'TimesController@restore')->name('restore-times');
 
-Route::resource('results', 'ResultsController')->except('create');
-Route::get('results/create/{type}', 'ResultsController@create');
+    Route::resource('results', 'ResultsController')->except('create');
+    Route::get('results/create/{type}', 'ResultsController@create');
+});

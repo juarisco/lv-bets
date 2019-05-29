@@ -104,6 +104,12 @@ class TimesController extends Controller
     {
         $time = Time::withTrashed()->where('slug', $slug)->firstOrFail();
 
+        if ($time->results->count() > 0) {
+            session()->flash('error', 'Time ' . ucfirst($time->alias) . ' cannot be deleted, because it has some results.');
+
+            return redirect()->back();
+        }
+
         if ($time->trashed()) {
             $time->forceDelete();
         } else {

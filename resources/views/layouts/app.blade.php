@@ -38,19 +38,22 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Results by Lottery or Raffle
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach ($menu_lotteries as $lottery)
-                                    <a class="dropdown-item" href="{{ route('lottery.results', $lottery->slug ) }}">{{ $lottery->name }}</a>
-                                @endforeach
-                                {{-- <a class="dropdown-item" href="#">Another action</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Something else here</a> --}}
-                            </div>
-                        </li>
+                        @auth
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Results by Lottery or Raffle
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach ($menu_lotteries as $lottery)
+                                        <a class="dropdown-item" href="{{ route('lottery.results', $lottery->slug ) }}">{{ $lottery->name }}</a>
+                                    @endforeach
+                                    {{-- <a class="dropdown-item" href="#">Another action</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Something else here</a> --}}
+                                </div>
+                            </li>
+                            
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -93,11 +96,7 @@
             
             @auth
                 <div class="container">
-                    @if (session('success'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+                    @include('partials.alerts')
                     <div class="row">
                         <div class="col-md-4">
                             <ul class="list-group">

@@ -51,12 +51,12 @@
                     @foreach ($results as $result)
                         <tr>
                             <td>
-                                <a href="">
+                                <a href="{{ route('lottery.results', $result->lottery->slug) }}">
                                     {{ $result->lottery->name }}
+                                    @if ($result->lottery->is_raffle)
+                                        {{ ucfirst($result->time->alias) }}
+                                    @endif
                                 </a>
-                                @if ($result->lottery->is_raffle)
-                                    {{ ucfirst($result->time->alias) }}
-                                @endif
                             </td>
 
                             <td>{{ $result->number }}</td>

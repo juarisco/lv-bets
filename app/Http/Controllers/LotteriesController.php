@@ -124,6 +124,15 @@ class LotteriesController extends Controller
     {
         $lottery = Lottery::withTrashed()->where('slug', $slug)->firstOrFail();
 
+        if ($lottery->results->count() > 0) {
+            session()->flash(
+                'error',
+                ($lottery->type === 'lottery' ? 'Lottery ' : 'Raffle ') . $lottery->name . ' cannot be deleted, because it has some results.'
+            );
+
+            return redirect()->back();
+        }
+
         if ($lottery->trashed()) {
             $lottery->deleteImage();
 
