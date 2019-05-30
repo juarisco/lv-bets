@@ -27,7 +27,9 @@
                                 <img width="40px" height="40px" style="border-radius: 50%" src="{{ Gravatar::src($user->email) }}" alt="">
                             </td>
 
-                            <td>{{ $user->name }}</td>
+                            <td>
+                                {{ $user->name }}
+                            </td>
                             
                             <td>{{ $user->email }}</td>
 
@@ -49,9 +51,5 @@
 
     </div>
 </div>  
-
-@endsection
-
-@section('scripts')
 
 @endsection
