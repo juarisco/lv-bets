@@ -24,5 +24,11 @@ class UsersTableSeeder extends Seeder
                 'role' => 'admin',
             ]);
         }
+
+        User::create([
+            'name' => 'Emily Myers',
+            'email' => 'emily@myers.com',
+            'password' => Hash::make('password'),
+        ]);
     }
 }

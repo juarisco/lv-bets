@@ -26,7 +26,7 @@ class ResultsController extends Controller
      */
     public function index()
     {
-        return view('results.index')->withResults(Result::all());
+        return view('results.index')->withResults(Result::latest('published_at')->orderBy('lottery_id', 'asc')->paginate(2));
     }
 
     /**
@@ -38,8 +38,8 @@ class ResultsController extends Controller
     {
         if ($type == 'raffle' or $type == 'lottery') {
             return view('results.create')
-                ->with('lotteries', Lottery::where('type', $type)->get())
-                ->with('times', Time::all());
+                ->with('lotteries', Lottery::where('type', $type)->orderBy('name', 'asc')->get())
+                ->with('times', Time::orderBy('alias', 'asc')->get());
         } else {
             abort(404);
         }
@@ -53,8 +53,13 @@ class ResultsController extends Controller
      */
     public function store(CreateResultRequest $request)
     {
-        // dd($request->all());
-        Result::create($request->all());
+        // attributes
+        $data = $request->only(['number', 'series', 'published_at', 'lottery_id', 'time_id']);
+        // $data = $request->all();
+
+        $data['user_id'] = auth()->user()->id;
+
+        Result::create($data);
 
         session()->flash('success', 'Result created successfully.');
 
@@ -82,8 +87,8 @@ class ResultsController extends Controller
     {
         return view('results.edit')
             ->with('result', $result)
-            ->with('lotteries', Lottery::where('type', $result->lottery->type)->get())
-            ->with('times', Time::all());
+            ->with('lotteries', Lottery::where('type', $result->lottery->type)->orderBy('name', 'asc')->get())
+            ->with('times', Time::orderBy('alias', 'asc')->get());
     }
 
     /**

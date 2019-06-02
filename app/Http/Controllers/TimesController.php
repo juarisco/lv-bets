@@ -16,7 +16,7 @@ class TimesController extends Controller
      */
     public function index()
     {
-        return view('times.index')->withTimes(Time::all());
+        return view('times.index')->withTimes(Time::orderBy('alias', 'asc')->get());
     }
 
     /**

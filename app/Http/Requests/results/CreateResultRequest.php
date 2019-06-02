@@ -29,7 +29,7 @@ class CreateResultRequest extends FormRequest
             'series' => 'required|sometimes|numeric|digits:3',
             'published_at' => 'required|date|before:tomorrow',
             'lottery_id' => 'required|exists:lotteries,id',
-            // 'lottery_id' => 'required', Rule::in($this->lotteries),
+            // 'lottery_id' => 'required|in:' . $lotteries,
             'time_id' => 'required|sometimes|exists:times,id',
         ];
     }

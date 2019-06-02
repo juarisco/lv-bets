@@ -12,6 +12,7 @@ class Result extends Model
         'published_at',
         'lottery_id',
         'time_id',
+        'user_id',
     ];
 
     protected $dates = [
@@ -32,5 +33,13 @@ class Result extends Model
     public function time()
     {
         return $this->belongsTo(Time::class);
+    }
+
+    /**
+     * Get the user that added the Result.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

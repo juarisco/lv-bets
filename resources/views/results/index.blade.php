@@ -79,6 +79,10 @@
                     @endforeach
                 </tbody>
             </table>
+            <hr>
+            <div class="pagination justify-content-center">
+                {{ $results->links() }}
+            </div>
         @else
             <h3 class="text-center">No Results Yet</h3>
         @endif

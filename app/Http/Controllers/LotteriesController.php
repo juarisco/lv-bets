@@ -16,7 +16,7 @@ class LotteriesController extends Controller
      */
     public function index()
     {
-        return view('lotteries.index')->with('lotteries', Lottery::all());
+        return view('lotteries.index')->with('lotteries', Lottery::orderBy('type', 'asc')->orderBy('name', 'asc')->get());
     }
 
     /**
@@ -68,7 +68,7 @@ class LotteriesController extends Controller
     {
         return view('results.index')
             ->with('lottery', $lottery)
-            ->with('results', $lottery->results);
+            ->with('results', $lottery->results()->latest('published_at')->paginate(1));
     }
 
     /**

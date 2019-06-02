@@ -48,4 +48,12 @@ class User extends Authenticatable
     {
         return $this->role === 'admin';
     }
+
+    /**
+     * Get the results added for the user.
+     */
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
 }

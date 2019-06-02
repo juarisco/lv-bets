@@ -45,7 +45,6 @@
                                 {{ $time->alias }}
                             </option>                        
                         @endforeach
-                        <option value="lottery" {{-- old('time_id') == 'lottery' ? 'selected' : ''--}}>Option 1</option>
                     </select>
                     
                     @error('time_id')
@@ -65,7 +64,6 @@
                             {{ $lottery->name }}
                         </option>                        
                     @endforeach
-                    <option value="lottery" {{-- old('type') == 'lottery' ? 'selected' : ''--}}>Option 1</option>
                 </select>
                 
                 @error('lottery_id')
