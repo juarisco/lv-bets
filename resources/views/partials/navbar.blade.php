@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ url('/') }}" target="_blank">
             {{ config('app.name', 'Laravel') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -13,15 +13,23 @@
                 @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Results by Lottery or Raffle
+                            Lotteries
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @foreach ($menu_lotteries as $lottery)
-                                <a class="dropdown-item" href="{{ route('lottery.results', $lottery->slug ) }}">{{ $lottery->name }}</a>
+                                <a class="dropdown-item" href="{{ route('lottery.results', $lottery->slug ) }}">{{ Str::title($lottery->name) }}</a>
                             @endforeach
-                            {{-- <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a> --}}
+                        </div>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Raffles
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach ($menu_raffles as $raffle)
+                                <a class="dropdown-item" href="{{ route('lottery.results', $raffle->slug ) }}">{{ Str::title($raffle->name) }}</a>
+                            @endforeach
                         </div>
                     </li>
                     

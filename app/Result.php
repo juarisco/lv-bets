@@ -42,4 +42,19 @@ class Result extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Scope a query to only get the results of the last published_at.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeResultsLastPublishedAt($query)
+    {
+        // Get the last published_at from results
+        $lastPublishedAt = $this->latest('published_at')->value('published_at');
+
+        // Filter the results of the last pusblished_at
+        return $query->where('published_at', $lastPublishedAt);
+    }
 }

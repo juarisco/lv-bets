@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('frontend');
-});
+Route::get('/', 'FrontendController@index')->name('frontend.index');
+Route::get('/lottery/{lottery}/results', 'FrontendController@showLotteryResults')->name('frontend.showLotteryResults');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('lotteries', 'LotteriesController');
     Route::get('trashed-lotteries', 'LotteriesController@trashed')->name('trashed-lotteries.index');
     Route::put('restore-lotteries/{lottery}', 'LotteriesController@restore')->name('restore-lotteries');
@@ -31,11 +30,16 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('results', 'ResultsController')->except('create');
     Route::get('results/create/{type}', 'ResultsController@create');
-});
 
-Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('users', 'UsersController@index')->name('users.index');
     Route::post('users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
     Route::get('users/profile', 'UsersController@edit')->name('users.edit-profile');
     Route::put('users/profile', 'UsersController@update')->name('users.update-profile');
 });
+
+// Route::group(['middleware' => ['auth', 'admin']], function () {
+//     Route::get('users', 'UsersController@index')->name('users.index');
+//     Route::post('users/{user}/make-admin', 'UsersController@makeAdmin')->name('users.make-admin');
+//     Route::get('users/profile', 'UsersController@edit')->name('users.edit-profile');
+//     Route::put('users/profile', 'UsersController@update')->name('users.update-profile');
+// });

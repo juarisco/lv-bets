@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-    | Editing {{ ucfirst($lottery->type) }} {{$lottery->name}}
+    | Editing {{ Str::title($lottery->type . ' ' . $lottery->name) }}
 @endsection
 
 @section('content')
 
 <div class="card">
     <div class="card-header">
-        Edit lottery or raffle <strong>{{ ucfirst($lottery->name) }}</strong>
+        Edit {{ Str::title($lottery->type) }} <strong>{{ Str::title($lottery->name) }}</strong>
     </div>
 
     <div class="card-body">

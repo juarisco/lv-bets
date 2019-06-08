@@ -25,8 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $lotteries = Lottery::orderBy('type')->orderBy('name')->get();
+        $lotteries = Lottery::orderBy('name')->where('type', 'lottery')->get();
+        $raffles = Lottery::orderBy('name')->where('type', 'raffle')->get();
 
-        View::share('menu_lotteries', $lotteries);
+        View::share([
+            'menu_lotteries' => $lotteries,
+            'menu_raffles' => $raffles,
+        ]);
+        // View::share('menu_lotteries', $lotteries);
+        // View::share('menu_raffles', $raffles);
     }
 }

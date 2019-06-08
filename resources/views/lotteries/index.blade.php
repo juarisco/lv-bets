@@ -29,9 +29,9 @@
                 <tbody>
                     @foreach ($lotteries as $lottery)
                         <tr>
-                            <td>{{ $lottery->name }}</td>
+                            <td>{{ Str::title($lottery->name) }}</td>
                             <td>{!! $lottery->description !!}</td>
-                            <td>{{ $lottery->type }}</td>
+                            <td>{{ Str::title($lottery->type) }}</td>
                             <td>
                                 @if (!$lottery->image)
                                     No image

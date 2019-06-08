@@ -1,3 +1,12 @@
+/* navbar.css */
+body {
+  padding-bottom: 20px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
 /* stylelint-disable selector-list-comma-newline-after */
 
 .blog-header {
@@ -14,8 +23,12 @@
   text-decoration: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+/* h1, h2, h3, h4, h5, h6 {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+} */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 .display-4 {
@@ -71,6 +84,17 @@ h1, h2, h3, h4, h5, h6 {
 /*
  * Blog name and description
  */
+ .result-title-lottery {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+}
+
+.result-lottery-meta {
+  margin-bottom: 1.25rem;
+  color: #999;
+}
+
 .blog-title {
   margin-bottom: 0;
   font-size: 2rem;
@@ -96,30 +120,40 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /*
- * Blog posts
+ * Section results
  */
-.blog-post {
-  margin-bottom: 4rem;
+.section-result-title {
+  font-size: 2rem;
 }
-.blog-post-title {
-  margin-bottom: .25rem;
-  font-size: 2.5rem;
+
+.section-result {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
 }
-.blog-post-meta {
-  margin-bottom: 1.25rem;
+.section-result-number {
+  margin-bottom: 1.5rem;
+  font-size: 1.75rem;
+}
+.section-result-meta {
+  margin-bottom: 0.25rem;
   color: #999;
+}
+
+.th{
+  font-weight: 500;
+  color:#fff;
 }
 
 /*
  * Footer
  */
-.blog-footer {
+.result-footer {
   padding: 2.5rem 0;
   color: #999;
   text-align: center;
   background-color: #f9f9f9;
   border-top: .05rem solid #e5e5e5;
 }
-.blog-footer p:last-child {
+.result-footer p:last-child {
   margin-bottom: 0;
 }

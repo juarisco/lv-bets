@@ -18,7 +18,7 @@
                     <option value="" selected>Not selected</option>
                     @foreach ($lotteries as $lottery)
                         <option value="{{ $lottery->id }}" {{ old('lottery_id', $result->lottery_id) == $lottery->id ? 'selected' : '' }}>
-                            {{ $lottery->name }}
+                            {{ Str::title($lottery->name) }}
                         </option>                        
                     @endforeach
                 </select>
@@ -37,7 +37,7 @@
                         <option value="" selected>Not selected</option>
                         @foreach ($times as $time)
                             <option value="{{ $time->id }}" {{ old('time_id', $result->time_id) == $time->id ? 'selected' : '' }}>
-                                {{ $time->alias }}
+                                {{ Str::title($time->alias) }}
                             </option>                        
                         @endforeach
                     </select>

@@ -11,9 +11,49 @@
         <form action="{{ route('results.store') }}" method="post">
             @csrf
 
+            <input type="hidden" name="type" value="{{ request('type') }}">
+            
+            <div class="form-group">
+                <label for="lottery_id">Lottery</label>
+                <select name="lottery_id" id="lottery_id" class="form-control @error('lottery_id') is-invalid @enderror" autofocus>
+                    <option value="" selected>Not selected</option>
+                    @foreach ($lotteries as $lottery)
+                        <option value="{{ $lottery->id }}" {{ old('lottery_id') == $lottery->id ? 'selected' : '' }}>
+                            {{ Str::title($lottery->name) }}
+                        </option>                        
+                    @endforeach
+                </select>
+                
+                @error('lottery_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+
+            @if (request('type') == 'raffle')
+                <div class="form-group">
+                    <label for="time_id">Time</label>
+                    <select name="time_id" id="time_id" class="form-control @error('time_id') is-invalid @enderror">
+                        <option value="" selected>Not selected</option>
+                        @foreach ($times as $time)
+                            <option value="{{ $time->id }}" {{ old('time_id') == $time->id ? 'selected' : '' }}>
+                                {{ Str::title($time->alias) }}
+                            </option>                        
+                        @endforeach
+                    </select>
+                    
+                    @error('time_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            @endif
+
             <div class="form-group">
                 <label for="number">Number</label>
-                <input type="text" name="number" id="number" class="form-control @error('number') is-invalid @enderror" placeholder="Number" value="{{ old('number') }}" autofocus>
+                <input type="text" name="number" id="number" class="form-control @error('number') is-invalid @enderror" placeholder="Number" value="{{ old('number') }}">
                 
                 @error('number')
                     <span class="invalid-feedback" role="alert">
@@ -34,44 +74,6 @@
                     @enderror
                 </div>
             @endif
-            
-            @if (request('type') == 'raffle')
-                <div class="form-group">
-                    <label for="time_id">Time</label>
-                    <select name="time_id" id="time_id" class="form-control @error('time_id') is-invalid @enderror">
-                        <option value="" selected>Not selected</option>
-                        @foreach ($times as $time)
-                            <option value="{{ $time->id }}" {{ old('time_id') == $time->id ? 'selected' : '' }}>
-                                {{ $time->alias }}
-                            </option>                        
-                        @endforeach
-                    </select>
-                    
-                    @error('time_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                    @enderror
-                </div>
-            @endif
-
-            <div class="form-group">
-                <label for="lottery_id">Lottery</label>
-                <select name="lottery_id" id="lottery_id" class="form-control @error('lottery_id') is-invalid @enderror">
-                    <option value="" selected>Not selected</option>
-                    @foreach ($lotteries as $lottery)
-                        <option value="{{ $lottery->id }}" {{ old('lottery_id') == $lottery->id ? 'selected' : '' }}>
-                            {{ $lottery->name }}
-                        </option>                        
-                    @endforeach
-                </select>
-                
-                @error('lottery_id')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
 
             <div class="form-group">
                 <label for="published_at">Published At</label>

@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
 @section('title')
-    | Editing Time {{ ucfirst($time->alias) }}
+    | Editing Time {{ Str::title($time->alias) }}
 @endsection
 
 @section('content')
 
 <div class="card">
     <div class="card-header">
-        Edit Time <strong>{{ ucfirst($time->alias) }}</strong>
+        Edit Time <strong>{{ Str::title($time->alias) }}</strong>
     </div>
 
     <div class="card-body">

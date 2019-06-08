@@ -8,6 +8,16 @@ use App\Http\Requests\UpdateProfileRequest;
 
 class UsersController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('admin');
+    }
+
     public function index()
     {
         return view('users.index')->with('users', User::orderBy('role', 'asc')->orderBy('name', 'asc')->get());

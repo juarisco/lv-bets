@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-    | Edit Users {{ '- ' . auth()->user()->name }}
+    | Edit User {{ '- ' . Str::title(auth()->user()->name) }}
 @endsection
 
 @section('content')
 
 <div class="card">
-    <div class="card-header">My Profile {{ '- ' . auth()->user()->name }}</div>
+    <div class="card-header">My Profile - <strong>{{ Str::title(auth()->user()->name) }}</strong></div>
 
     <div class="card-body">
         <form action="{{ route('users.update-profile', auth()->user()->id) }}" method="post">
@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $user->name ) }}">
+                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', Str::title($user->name) ) }}">
                 
                 @error('name')
                     <span class="invalid-feedback" role="alert">

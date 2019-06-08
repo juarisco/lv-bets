@@ -13,8 +13,8 @@
             Add Result
         </button>
         <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-            <a class="dropdown-item" href="{{ url('results/create', ['lottery']) }}">Add Lottery</a>
-            <a class="dropdown-item" href="{{ url('results/create', ['raffle']) }}">Add Rafle</a>
+            <a class="dropdown-item" href="{{ url('admin/results/create', ['lottery']) }}">Add Lottery</a>
+            <a class="dropdown-item" href="{{ url('admin/results/create', ['raffle']) }}">Add Rafle</a>
         </div>
     </div> 
 
@@ -52,9 +52,9 @@
                         <tr>
                             <td>
                                 <a href="{{ route('lottery.results', $result->lottery->slug) }}">
-                                    {{ $result->lottery->name }}
+                                    {{ Str::title($result->lottery->name) }}
                                     @if ($result->lottery->is_raffle)
-                                        {{ ucfirst($result->time->alias) }}
+                                        {{ Str::title($result->time->alias) }}
                                     @endif
                                 </a>
                             </td>

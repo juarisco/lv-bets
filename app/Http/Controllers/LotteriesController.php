@@ -68,7 +68,7 @@ class LotteriesController extends Controller
     {
         return view('results.index')
             ->with('lottery', $lottery)
-            ->with('results', $lottery->results()->latest('published_at')->paginate(1));
+            ->with('results', $lottery->results()->paginate(5));
     }
 
     /**
