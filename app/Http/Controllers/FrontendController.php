@@ -21,6 +21,7 @@ class FrontendController extends Controller
     {
         return view('frontend.showLotteryResults')
             ->with('lottery', $lottery)
-            ->with('results', $lottery->results()->paginate(2));
+            ->with('recentResult', ($lottery->is_raffle ? $lottery->results()->take(2)->get() : $lottery->results()->first()))
+            ->with('results', $lottery->results()->simplePaginate(2));
     }
 }

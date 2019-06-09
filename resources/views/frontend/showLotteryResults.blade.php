@@ -11,7 +11,8 @@
         <div class="result-lottery-meta">{{ $results->count() . ' ' . Str::plural('result', $results->count()) }} here.</div>
         <div class="row">
             @if ($lottery->is_raffle)
-                @foreach ($results->take(2) as $result)
+                {{-- @foreach ($results->take(2) as $result) --}}
+                @foreach ($recentResult as $result)
                     <div class="col-md-6">
                         <h3 class="mb-0">
                             {{ Str::title($result->lottery->name . ' ' . Str::title($result->time->alias)) }}
@@ -23,9 +24,9 @@
             @else
                 <div class="col-md-6">
                     <h3 class="mb-0">{{ Str::title($lottery->name) }}</h3>
-                    <div class="section-result-meta">{{ $results->first()->published_at->toFormattedDateString() }}</div>
-                    <strong class="d-inline-block section-result-number text-primary">{{ $results->first()->number }}</strong>
-                    <strong class="ml-1 text-success">{{ $results->first()->series }}</strong>
+                    <div class="section-result-meta">{{ $recentResult->published_at->toFormattedDateString() }}</div>
+                    <strong class="d-inline-block section-result-number text-primary">{{ $recentResult->number }}</strong>
+                    <strong class="ml-1 text-success">{{ $recentResult->series }}</strong>
                 </div>            
             @endif
         </div><!-- /.row -->
@@ -56,21 +57,9 @@
     </div><!-- /.section-result -->
 
     {{-- {{ $discussions->appends(['channel'=>request()->query('channel')])->links() }} --}}
-    {{ $results->links() }}
-
-    <nav class="blog-pagination" aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>    
+    <div class="row justify-content-center">
+        {{ $results->links() }}
+    </div>
 
     {{-- <nav class="blog-pagination">
         <a class="btn btn-outline-primary" href="#">Older</a>
