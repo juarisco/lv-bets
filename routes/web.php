@@ -13,6 +13,7 @@
 
 Route::get('/', 'FrontendController@index')->name('frontend.index');
 Route::get('/lottery/{lottery}/results', 'FrontendController@showLotteryResults')->name('frontend.showLotteryResults');
+Route::get('/raffle/{lottery}/results', 'FrontendController@showLotteryResults')->name('frontend.showRaffleResults');
 
 Auth::routes();
 
