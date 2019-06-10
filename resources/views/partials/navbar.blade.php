@@ -11,7 +11,7 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 @auth
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{ setActiveRoute('lottery.results') }}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Lotteries
                         </a>
@@ -22,13 +22,13 @@
                         </div>
                     </li>
 
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown {{ setActiveRoute('raffle.results') }}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Raffles
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @foreach ($menu_raffles as $raffle)
-                                <a class="dropdown-item" href="{{ route('lottery.results', $raffle->slug ) }}">{{ Str::title($raffle->name) }}</a>
+                                <a class="dropdown-item" href="{{ route('raffle.results', $raffle->slug ) }}">{{ Str::title($raffle->name) }}</a>
                             @endforeach
                         </div>
                     </li>

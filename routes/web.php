@@ -24,6 +24,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::get('trashed-lotteries', 'LotteriesController@trashed')->name('trashed-lotteries.index');
     Route::put('restore-lotteries/{lottery}', 'LotteriesController@restore')->name('restore-lotteries');
     Route::get('lottery/{lottery}/results', 'LotteriesController@showResults')->name('lottery.results');
+    Route::get('raffle/{lottery}/results', 'LotteriesController@showResults')->name('raffle.results');
+    Route::get('lottery/{lottery}/results/time/{time}', 'LotteriesController@showResultsTime')->name('raffle.results.time');
 
     Route::resource('times', 'TimesController');
     Route::get('trashed-times', 'TimesController@trashed')->name('trashed-times.index');

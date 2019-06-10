@@ -11,7 +11,7 @@
 </div>
 
 <div class="card">
-<div class="card-header">Times @if(request()->is('trashed-times')) Trashed @endif</div>
+    <div class="card-header">Times @if(request()->is('trashed-times')) Trashed @endif</div>
 
     <div class="card-body">
         @if ($times->count())

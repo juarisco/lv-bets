@@ -51,12 +51,18 @@
                     @foreach ($results as $result)
                         <tr>
                             <td>
-                                <a href="{{ route('lottery.results', $result->lottery->slug) }}">
-                                    {{ Str::title($result->lottery->name) }}
-                                    @if ($result->lottery->is_raffle)
-                                        {{ Str::title($result->time->alias) }}
-                                    @endif
-                                </a>
+                                @if ($result->lottery->is_lottery)
+                                    <a href="{{ route('lottery.results', $result->lottery->slug) }}">
+                                        {{ Str::title($result->lottery->name) }}
+                                    </a>
+                                @else
+                                    <a href="{{ route('raffle.results.time', ['lottery' => $result->lottery->slug, 'time' => $result->time->alias]) }}">
+                                        {{ Str::title($result->lottery->name) }}
+                                        @if ($result->lottery->is_raffle)
+                                            {{ Str::title($result->time->alias) }}
+                                        @endif
+                                    </a>
+                                @endif
                             </td>
 
                             <td>{{ $result->number }}</td>

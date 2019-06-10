@@ -6,6 +6,7 @@ use App\Lottery;
 use Illuminate\Http\Request;
 use App\Http\Requests\lotteries\CreateLotteryRequest;
 use App\Http\Requests\lotteries\UpdateLotteryRequest;
+use App\Time;
 
 class LotteriesController extends Controller
 {
@@ -69,6 +70,21 @@ class LotteriesController extends Controller
         return view('results.index')
             ->with('lottery', $lottery)
             ->with('results', $lottery->results()->paginate(5));
+    }
+
+    /**
+     * Display the specified result's resource.
+     *
+     * @param  \App\Lottery  $lottery
+     * @param  \App\Time  $time
+     * @return \Illuminate\Http\Response
+     */
+    public function showResultsTime(Lottery $lottery, Time $time)
+    {
+        return view('results.index')
+            ->with('lottery', $lottery)
+            // ->with('results', $time->results()->paginate(5));
+            ->with('results', $lottery->results()->where('time_id', $time->id)->paginate(5));
     }
 
     /**
