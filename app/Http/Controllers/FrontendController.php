@@ -21,7 +21,7 @@ class FrontendController extends Controller
     {
         if (request()->query('search')) {
             $this->validate(request(), [
-                'search' => 'required|sometimes|numeric|digits_between:1,4',
+                'search' => 'required|numeric|digits_between:1,4',
             ]);
         }
 

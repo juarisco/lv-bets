@@ -59,11 +59,17 @@ class ResultsController extends Controller
 
         $data['user_id'] = auth()->user()->id;
 
-        Result::create($data);
+        if (Result::alreadyHere($data['published_at'], $data['lottery_id'], optional($data)['time_id'])) {
+            session()->flash('error', 'This Result already exists in the database!');
 
-        session()->flash('success', 'Result created successfully.');
+            return redirect()->back()->withInput();
+        } else {
+            Result::create($data);
 
-        return redirect()->route('results.index');
+            session()->flash('success', 'Result created successfully.');
+
+            return redirect()->route('results.index');
+        }
     }
 
     /**

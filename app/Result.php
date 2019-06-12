@@ -74,4 +74,24 @@ class Result extends Model
 
         return $query->where('number', 'LIKE', "%{$search}");
     }
+
+    /**
+     * Static method if a result already exists in the database
+     *
+     * @return boolean
+     */
+    public static function alreadyHere($published_at, $lottery_id, $time_id = null)
+    {
+        $result = Result::where([
+            'published_at' => $published_at,
+            'lottery_id' => $lottery_id,
+            'time_id' => $time_id,
+        ])->first();
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
