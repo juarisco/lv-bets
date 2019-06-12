@@ -8,7 +8,23 @@
     
     <div class="section-result">
         <h2 class="result-title-lottery border-bottom">{{ Str::title($lottery->name) }} Results List</h2>
-        <div class="result-lottery-meta">{{ $results->count() . ' ' . Str::plural('result', $results->count()) }} here.</div>
+        <div class="d-flex justify-content-end">
+            <form class="form-inline" method="GET">
+                <div class="input-group">
+                    <input type="text" class="form-control" name="search" placeholder="search..." value="{{ request()->query('search') }}" aria-label="search" aria-describedby="basic-addon1">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="basic-addon1">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                    
+                </div>
+            </form>              
+        </div>
+        <div class="result-lottery-meta">
+            {{ $results->count() . ' ' . Str::plural('result', $results->count()) }} here.
+        </div>
+
         <div class="row">
             @if ($lottery->is_raffle)
                 {{-- @foreach ($results->take(2) as $result) --}}
@@ -56,14 +72,8 @@
 
     </div><!-- /.section-result -->
 
-    {{-- {{ $discussions->appends(['channel'=>request()->query('channel')])->links() }} --}}
     <div class="row justify-content-center">
-        {{ $results->links() }}
+        {{ $results->appends(['search' => request()->query('search')])->links() }}
     </div>
-
-    {{-- <nav class="blog-pagination">
-        <a class="btn btn-outline-primary" href="#">Older</a>
-        <a class="btn btn-outline-secondary disabled" href="#" tabindex="-1" aria-disabled="true">Newer</a>
-    </nav> --}}
 
 @endsection

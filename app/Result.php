@@ -57,4 +57,21 @@ class Result extends Model
         // Filter the results of the last pusblished_at
         return $query->where('published_at', $lastPublishedAt);
     }
+
+    /**
+     * Scope a query to only get the results of the last published_at.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearched($query)
+    {
+        $search = request()->query('search');
+
+        if (!$search) {
+            return $query;
+        }
+
+        return $query->where('number', 'LIKE', "%{$search}");
+    }
 }
