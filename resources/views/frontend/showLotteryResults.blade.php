@@ -9,22 +9,22 @@
     <div class="section-result">
         <h2 class="result-title-lottery border-bottom">{{ Str::title($lottery->name) }} Results List</h2>
         <div class="d-flex justify-content-end">
-            <form class="form-inline" method="GET">
+            <form class="form-inline mb-4" method="GET">
                 <div class="input-group">
-                    <input type="text" class="form-control" name="search" placeholder="search..." value="{{ request()->query('search') }}" aria-label="search" aria-describedby="basic-addon1">
+                    <input type="text" name="search" class="form-control @error('search') is-invalid @enderror" placeholder="search..." value="{{ request()->query('search') }}" aria-label="search" aria-describedby="basic-addon1">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="basic-addon1">
                             <i class="fa fa-search"></i>
                         </span>
                     </div>
-                    
+                    @error('search')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
             </form>              
         </div>
-        <div class="result-lottery-meta">
-            {{ $results->count() . ' ' . Str::plural('result', $results->count()) }} here.
-        </div>
-
         <div class="row">
             @if ($lottery->is_raffle)
                 {{-- @foreach ($results->take(2) as $result) --}}
@@ -46,6 +46,9 @@
                 </div>            
             @endif
         </div><!-- /.row -->
+        <div class="result-lottery-meta">
+            {{ $results->count() . ' ' . Str::plural('result', $results->count()) }} here.
+        </div>
         <table class="table">
             <thead>
                 <tr class="bg-primary">

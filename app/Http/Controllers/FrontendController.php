@@ -19,6 +19,12 @@ class FrontendController extends Controller
 
     public function showLotteryResults(Lottery $lottery)
     {
+        if (request()->query('search')) {
+            $this->validate(request(), [
+                'search' => 'required|sometimes|numeric|digits_between:1,4',
+            ]);
+        }
+
         return view('frontend.showLotteryResults')
             ->with('lottery', $lottery)
             ->with('recentResult', ($lottery->is_raffle ? $lottery->results()->take(2)->get() : $lottery->results()->first()))

@@ -59,7 +59,7 @@ class Result extends Model
     }
 
     /**
-     * Scope a query to only get the results of the last published_at.
+     * Scope a query to only get the results of the search.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
@@ -68,7 +68,7 @@ class Result extends Model
     {
         $search = request()->query('search');
 
-        if (!$search) {
+        if (!$search && $search != 0) {
             return $query;
         }
 
