@@ -26,6 +26,7 @@ class ResultsController extends Controller
      */
     public function index()
     {
+        // dd(Result::where('lottery_id', 9)->latest('published_at')->take(3)->get());
         return view('results.index')->withResults(Result::latest('published_at')->paginate(20));
     }
 

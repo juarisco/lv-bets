@@ -98,7 +98,7 @@
     <script>
         function handleDelete(slug) {
             var form = document.getElementById('deleteLotteryForm')
-            form.action ='/lotteries/' + slug
+            form.action ='/admin/lotteries/' + slug
             console.log('deleting.', form)
             $('#deleteModal').modal('show')
         }

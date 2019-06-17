@@ -88,7 +88,7 @@
     <script>
         function handleDelete(slug) {
             var form = document.getElementById('deleteTimeForm')
-            form.action ='/times/' + slug
+            form.action ='/admin/times/' + slug
             console.log('deleting.', form)
             $('#deleteModal').modal('show')
         }

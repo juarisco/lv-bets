@@ -76,10 +76,12 @@
                             <td>{{ $result->published_at->toFormattedDateString() }}</td>
                             
                             <td>
-                                <a href="{{ route('results.edit', $result->id) }}" class="btn btn-info btn-sm">Edit</a>
-                                <button class="btn btn-danger btn-sm" onclick="handleDelete('{{ $result->id }}')">
-                                    Delete
-                                </button>
+                                @if (!$result->lottery->trashed())
+                                    <a href="{{ route('results.edit', $result->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                    <button class="btn btn-danger btn-sm" onclick="handleDelete('{{ $result->id }}')">
+                                        Delete
+                                    </button>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

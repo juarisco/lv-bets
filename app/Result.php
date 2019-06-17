@@ -20,11 +20,18 @@ class Result extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['lottery', 'time'];
+
+    /**
      * Get the lottery that owns the Result.
      */
     public function lottery()
     {
-        return $this->belongsTo(Lottery::class);
+        return $this->belongsTo(Lottery::class)->withTrashed();
     }
 
     /**
