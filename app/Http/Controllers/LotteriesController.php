@@ -69,7 +69,7 @@ class LotteriesController extends Controller
     {
         return view('results.index')
             ->with('lottery', $lottery)
-            ->with('results', $lottery->results()->paginate(5));
+            ->with('results', $lottery->results()->paginate(20));
     }
 
     /**
@@ -84,7 +84,7 @@ class LotteriesController extends Controller
         return view('results.index')
             ->with('lottery', $lottery)
             // ->with('results', $time->results()->paginate(5));
-            ->with('results', $lottery->results()->where('time_id', $time->id)->paginate(5));
+            ->with('results', $lottery->results()->where('time_id', $time->id)->paginate(20));
     }
 
     /**

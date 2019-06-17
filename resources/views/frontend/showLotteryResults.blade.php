@@ -26,26 +26,29 @@
             </form>              
         </div>
         <div class="row">
-            @if ($lottery->is_raffle)
-                {{-- @foreach ($results->take(2) as $result) --}}
-                @foreach ($recentResult as $result)
+            @if ($recentResult)
+                @if ($lottery->is_raffle)
+                    {{-- @foreach ($results->take(2) as $result) --}}
+                    @foreach ($recentResult as $result)
+                        <div class="col-md-6">
+                            <h3 class="mb-0">
+                                {{ Str::title($result->lottery->name . ' ' . Str::title($result->time->alias)) }}
+                            </h3>
+                            <div class="section-result-meta">{{ $result->published_at->toFormattedDateString() }}</div>
+                            <strong class="d-inline-block section-result-number text-primary">{{ $result->number }}</strong>
+                        </div>
+                    @endforeach
+                @else
                     <div class="col-md-6">
-                        <h3 class="mb-0">
-                            {{ Str::title($result->lottery->name . ' ' . Str::title($result->time->alias)) }}
-                        </h3>
-                        <div class="section-result-meta">{{ $result->published_at->toFormattedDateString() }}</div>
-                        <strong class="d-inline-block section-result-number text-primary">{{ $result->number }}</strong>
-                    </div>
-                @endforeach
-            @else
-                <div class="col-md-6">
-                    <h3 class="mb-0">{{ Str::title($lottery->name) }}</h3>
-                    <div class="section-result-meta">{{ $recentResult->published_at->toFormattedDateString() }}</div>
-                    <strong class="d-inline-block section-result-number text-primary">{{ $recentResult->number }}</strong>
-                    <strong class="ml-1 text-success">{{ $recentResult->series }}</strong>
-                </div>            
+                        <h3 class="mb-0">{{ Str::title($lottery->name) }}</h3>
+                        <div class="section-result-meta">{{ $recentResult->published_at->toFormattedDateString() }}</div>
+                        <strong class="d-inline-block section-result-number text-primary">{{ $recentResult->number }}</strong>
+                        <strong class="ml-1 text-success">{{ $recentResult->series }}</strong>
+                    </div>            
+                @endif
             @endif
         </div><!-- /.row -->
+
         <div class="result-lottery-meta">
             {{ $results->count() . ' ' . Str::plural('result', $results->count()) }} here.
         </div>
@@ -66,7 +69,12 @@
                                 {{ Str::title($result->time->alias) }}
                             @endif
                         </td>
-                        <td>{{ $result->number }}</td>
+                        <td>
+                            {{ $result->number }}
+                            @if ($result->lottery->is_lottery)
+                                <small>{{ $result->series }}</small>
+                            @endif
+                        </td>
                         <td>{{ $result->published_at->toFormattedDateString() }}</td>
                     </tr>
                 @endforeach

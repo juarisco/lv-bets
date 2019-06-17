@@ -26,7 +26,7 @@ class ResultsController extends Controller
      */
     public function index()
     {
-        return view('results.index')->withResults(Result::latest('published_at')->paginate(5));
+        return view('results.index')->withResults(Result::latest('published_at')->paginate(20));
     }
 
     /**
